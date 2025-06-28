@@ -11,7 +11,7 @@ function preguntarElemento() {
             rl.question("¿Qué empleo deseas buscar en Hireline? ", (respuesta) => {
                 const argumentoBusqueda = respuesta.trim();
                 if (argumentoBusqueda === '' || argumentoBusqueda.length < 3) {
-                    console.log("Por favor, ingresa al menos 3 caracteres.");
+                    ("Por favor, ingresa al menos 3 caracteres.");
                     hacerPregunta();
                 } else {
                     rl.close();

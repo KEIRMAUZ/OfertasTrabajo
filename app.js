@@ -1,6 +1,11 @@
 const puppeteer = require('puppeteer');
 const preguntarElemento = require('./preguntarElemento');
 
+const convertirCsv = require('./formatoDatos/convertirCsv');
+const convertirJson = require('./formatoDatos/convertirJson');
+const convertirXlsx = require('./formatoDatos/convertirXlsx');
+const convertirPdf = require('./formatoDatos/convertirPdf');
+
 async function ofertasLaborales() {
     const navegador = await puppeteer.launch({
         headless: false,
@@ -89,9 +94,13 @@ async function ofertasLaborales() {
     }
 
     await navegador.close();
-
-    console.log("Resultados obtenidos:", AllPuestoTrabajo);
+    convertirCsv(AllPuestoTrabajo);
+    convertirJson(AllPuestoTrabajo);
+    convertirXlsx(AllPuestoTrabajo);
+    convertirPdf(AllPuestoTrabajo);
+    ("Resultados obtenidos:", AllPuestoTrabajo);
 }
+
 
 
 ofertasLaborales();
