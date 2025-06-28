@@ -54,11 +54,37 @@ async function ofertasLaborales() {
         await paginaPuesto.goto(url);
 
         const datosPuesto = await paginaPuesto.evaluate(() => {
+
             const titulo = document.querySelector('h1.text-cornflower-blue.text-2xl.font-bold.font-outfit')?.innerText;
-            return { titulo };
+            const sueldo = document.querySelector('p.text-vivid-sky-blue.text-2xl.font-bold.font-outfit.mb-4')?.innerText;
+            const ubicacion = document.querySelector('div>div:nth-child(1)>p:nth-child(2)')?.innerText;
+            const tiempo = document.querySelector('div.flex.items-start.md\\:items-center.justify-start.flex-col.md\\:flex-row.gap-4')
+            if(tiempo){
+                const hijos = Array.from(tiempo.querySelectorAll('div'));
+                const segundoDiv = hijos[1];
+                tiempoTexto = segundoDiv?.querySelector('p')?.innerText?.trim() || '';
+            }
+            const ingles = document.querySelector('div.flex>div:nth-child(3)>p:nth-child(2).text-slate-gray.text-sm.font-medium:nth-child(2)')?.innerText;
+            const descripcion = document.querySelector('div.text-sm.text-rich-black.font-normal.ul-disc.overflow-wrap')?.innerText;
+            const descripcionLimpia = descripcion.replace(/\n+/g,' ').trim();
+
+            return { 
+                titulo,
+                sueldo,
+                ubicacion,
+                tiempo:tiempoTexto,
+                ingles,
+                descripcionLimpia
+
+            };
         });
 
         puesto.titulo = datosPuesto.titulo;
+        puesto.sueldo = datosPuesto.sueldo;
+        puesto.ubicacion = datosPuesto.ubicacion;
+        puesto.tiempo = datosPuesto.tiempo;
+        puesto.ingles = datosPuesto.ingles;
+        puesto.descripcionLimpia=datosPuesto.descripcionLimpia;
         await paginaPuesto.close();
     }
 
@@ -67,5 +93,5 @@ async function ofertasLaborales() {
     console.log("Resultados obtenidos:", AllPuestoTrabajo);
 }
 
-// ✅ Llamada a la función para iniciar el proceso
+
 ofertasLaborales();
