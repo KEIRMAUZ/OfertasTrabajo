@@ -62,7 +62,8 @@ async function ofertasLaborales() {
 
             const titulo = document.querySelector('h1.text-cornflower-blue.text-2xl.font-bold.font-outfit')?.innerText;
             const sueldo = document.querySelector('p.text-vivid-sky-blue.text-2xl.font-bold.font-outfit.mb-4')?.innerText;
-            const ubicacion = document.querySelector('div>div:nth-child(1)>p:nth-child(2)')?.innerText;
+            const ubicacion = document.querySelector('div>div>p.text-slate-gray.text-sm.font-medium')?.innerText;
+            const ubicacionLimpia = ubicacion.replace(/\n+/g,' ').trim();
             const tiempo = document.querySelector('div.flex.items-start.md\\:items-center.justify-start.flex-col.md\\:flex-row.gap-4')
             if(tiempo){
                 const hijos = Array.from(tiempo.querySelectorAll('div'));
@@ -76,7 +77,7 @@ async function ofertasLaborales() {
             return { 
                 titulo,
                 sueldo,
-                ubicacion,
+                ubicacionLimpia,
                 tiempo:tiempoTexto,
                 ingles,
                 descripcionLimpia
@@ -86,7 +87,7 @@ async function ofertasLaborales() {
 
         puesto.titulo = datosPuesto.titulo;
         puesto.sueldo = datosPuesto.sueldo;
-        puesto.ubicacion = datosPuesto.ubicacion;
+        puesto.ubicacionLimpia = datosPuesto.ubicacionLimpia;
         puesto.tiempo = datosPuesto.tiempo;
         puesto.ingles = datosPuesto.ingles;
         puesto.descripcionLimpia=datosPuesto.descripcionLimpia;
